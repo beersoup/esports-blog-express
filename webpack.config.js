@@ -3,22 +3,19 @@ const webpack = require('webpack');
 
 
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // Constant with our paths
 const paths = {
-    DIST: path.resolve(__dirname, 'dist'),
-    SRC: path.resolve(__dirname, 'src'),
-    JS: path.resolve(__dirname, 'src/js')
+    DIST: path.resolve(__dirname, 'public'),
+    JS: path.resolve(__dirname, 'public/js')
 };
 
 // Webpack configuration
 module.exports = {
-    entry: path.join(paths.JS, 'index.js'),
+    entry: path.join(paths.JS, 'app.js'),
     output: {
         path: paths.DIST,
-        filename: 'app.bundle.js',
+        filename: 'bundle.js',
         publicPath: ''
     },
     devServer: {
@@ -26,51 +23,19 @@ module.exports = {
         // 'pages' or 404, run back to '/' (index.html), React-router in <script src=‘bundle.js’>
         //will take care of URL later on. Important!! It makes Router work properly!!
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: path.join(paths.SRC, 'index.html'),
-        }),
-        new ExtractTextPlugin('style.bundle.css'),
-
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery'
-        })
-    ],
 
     module: {
-        rules: [
+        loaders: [
             {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: [
-                    'babel-loader',
-                ],
-            },
+                exclude: /(node_modules)/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015', 'react']
+                }
+            }
+        ]
 
-            {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    use: 'css-loader',
-                }),
-            },
-
-            {
-                test: /\.(png|jpg|gif|svg)$/,
-                use: [
-                    'file-loader',
-                ],
-            },
-            { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
-        ],
     },
+    watch:true
 
-    resolve: {
-        extensions: ['.js', '.jsx'],
-    },
-
-    externals: {
-        jquery: 'jQuery'
-    },
 };
