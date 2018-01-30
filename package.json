@@ -19,8 +19,12 @@
     "react-dom": "^16.2.0",
     "react-markdown-renderer": "^1.4.0",
     "react-media": "^1.6.1",
+    "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1"
   },
@@ -28,8 +32,7 @@
   "scripts": {
     "webpack": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "start_windows": "set NODE_ENV=production&&node server.js"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC"
